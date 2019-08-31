@@ -1,0 +1,18 @@
+{
+  "name": "face-recognition-based-attendance-taking-app",
+  "version": "1.0.0",
+  "description": "Course project prototype for CZ3002",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd app && node app.js",
+    "dev": "cd app && nodemon app.js"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
