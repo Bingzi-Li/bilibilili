@@ -1,27 +1,37 @@
+const databaseInitializer = require('./utils/databaseInitializer')
+const passportInitializer = require('./utils/passportInitializer')
+const expressInitializer = require('./utils/expressInitializer')
+
+
 const express = require('express')
-const path = require('path')
+const mongoose = require('mongoose')
+const passport = require('passport')
+
+const attendanceController = require('./controllers/attendanceController')
+const loginController = require('./controllers/loginController')
+
+// connect to MongoDB
+mongoose.connect("mongodb://localhost/bilibilili", { useNewUrlParser: true }, (err, res) => {
+    if (!err) {
+        console.log("Successfully connected to MongoDB")
+    } else {
+        console.log("Failed to connect to MongoDB")
+    }
+})
 
 // instantiate express object
 const app = express()
 
-// set template engine to be ejs
-app.set('views', __dirname + '/views')
-app.set("view engine", "ejs")
+// initialize the database
+databaseInitializer.init()
+passportInitializer.init(passport)
+expressInitializer.init(app, passport)
 
-// set directory of static resources
-app.use(express.static(path.join(__dirname, '/public/images')))
-app.use(express.static(path.join(__dirname, '/public/css')))
-app.use(express.static(path.join(__dirname, '/public/js')))
-app.use(express.static(path.join(__dirname, '/public/weights')))
+// set up controllers
+attendanceController(app, passport)
+loginController(app, passport)
 
-app.get('/', function(req, res){
-    res.render('index')
-})
 
-app.get('/public/images/*', function (req, res) {
-    res.sendFile( __dirname + "/" + req.url );
-    console.log("Request for " + req.url + " received.");
-})
-
+// host the server
 app.listen(3000)
 console.log("Server listening to port 3000")

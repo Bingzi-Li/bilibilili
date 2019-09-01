@@ -10,14 +10,13 @@ Promise.all(
         faceapi.nets.faceLandmark68Net.loadFromUri('/'),
         faceapi.nets.ssdMobilenetv1.loadFromUri('/')
     ]
-).then(start).then(()=> {
+).then(start).then(() => {
     faceRecognition(videoEl, canvas, faceMatcher)
 })
 
 async function start() {
     // 
-    navigator.getUserMedia(
-        { video: {} },
+    navigator.getUserMedia({ video: {} },
         stream => videoEl.srcObject = stream,
         err => console.error(err)
     )
@@ -31,7 +30,7 @@ async function start() {
             // fetch image data from urls and convert blob to HTMLImage element
             const imgUrl = `http://localhost:3000/public/images/${label}.jpeg`
             const img = await faceapi.fetchImage(imgUrl)
-            
+
             // detect the face with the highest score in the image and compute it's landmarks and face descriptor
             const fullFaceDescription = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
 
@@ -48,9 +47,9 @@ async function start() {
     faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, maxDescriptorDistance)
 }
 
-async function faceRecognition(video, top_layer, matcher){
+async function faceRecognition(video, top_layer, matcher) {
     if (video.paused || video.ended || !matcher) {
-        setTimeout( faceRecognition(video, top_layer, matcher), 500);
+        setTimeout(faceRecognition(video, top_layer, matcher), 500);
     }
 
     // identify face
