@@ -22,7 +22,7 @@ mongoose.connect("mongodb://localhost/bilibilili", { useNewUrlParser: true }, (e
 // instantiate express object
 const app = express()
 
-// initialize the database
+// initialize everything
 databaseInitializer.init()
 passportInitializer.init(passport)
 expressInitializer.init(app, passport)
