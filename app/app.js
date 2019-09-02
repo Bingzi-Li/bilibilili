@@ -2,7 +2,6 @@ const databaseInitializer = require('./utils/databaseInitializer')
 const passportInitializer = require('./utils/passportInitializer')
 const expressInitializer = require('./utils/expressInitializer')
 
-
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
@@ -30,7 +29,6 @@ expressInitializer.init(app, passport)
 // set up controllers
 attendanceController(app, passport)
 loginController(app, passport)
-
 
 // host the server
 app.listen(3000)
