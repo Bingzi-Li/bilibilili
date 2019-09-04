@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 
 // User schema
 var UserSchema = mongoose.Schema({
@@ -29,6 +30,14 @@ module.exports.getUserByEmail = async function(email) {
 
 }
 
+module.exports.createUser = function(newUser, callback) {
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(newUser.password, salt, function(err, hash) {
+            newUser.password = hash;
+            newUser.save(callback);
+        });
+    });
+}
 
 module.exports.getUserById = function(id) {
     var query = { id: id };
