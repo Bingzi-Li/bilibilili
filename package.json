@@ -1,28 +1,28 @@
 {
-  "name": "face-recognition-based-attendance-taking-app",
-  "version": "1.0.0",
-  "description": "Course project prototype for CZ3002",
-  "main": "index.js",
-  "scripts": {
-    "start": "cd app && node app.js",
-    "dev": "cd app && nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^3.0.6",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.4",
-    "ejs": "^2.6.2",
-    "express": "^4.17.1",
-    "express-flash": "0.0.2",
-    "express-session": "^1.16.2",
-    "firebase": "^6.5.0",
-    "firebase-admin": "^8.4.0",
-    "mongoose": "^5.6.11",
-    "nodemon": "^1.19.1",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "serve-favicon": "^2.5.0"
-  }
+    "name": "face-recognition-based-attendance-taking-app",
+    "version": "1.0.0",
+    "description": "Course project prototype for CZ3002",
+    "main": "index.js",
+    "scripts": {
+        "start": "cd app && node app.js",
+        "dev": "cd app && nodemon app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^3.0.6",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.4",
+        "ejs": "^2.6.2",
+        "express": "^4.17.1",
+        "express-flash": "0.0.2",
+        "express-session": "^1.16.2",
+        "firebase": "^6.5.0",
+        "firebase-admin": "^8.4.0",
+        "mongoose": "^5.6.11",
+        "nodemon": "^1.19.1",
+        "passport": "^0.4.0",
+        "passport-local": "^1.0.0",
+        "serve-favicon": "^2.5.0"
+    }
 }
