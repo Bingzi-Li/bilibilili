@@ -1,24 +1,25 @@
 const User = require('../models/user')
 
-function init() {
-    initDefaultAdmin()
-}
-
-// check if admin user is initialized
+// initialize the default admin user in MongoDB if absent
 function initDefaultAdmin() {
+
     User.find({ email: "admin@ntu.edu.sg" }, function(err, data) {
         if (err) {
             console.log("Error when finding the defaault admin user")
         } else {
+
+            // create the default admin user
             if (data.length == 0) {
                 User.createUser(new User({
                     email: "admin@ntu.edu.sg",
                     password: "admin123",
-                    displayName: "admin"
+                    displayName: "Admin",
+                    role: "admin"
                 }))
             }
         }
     })
 }
 
-module.exports.init = init
+// export the init function
+module.exports.init = initDefaultAdmin

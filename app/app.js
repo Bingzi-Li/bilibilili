@@ -8,6 +8,7 @@ const passport = require('passport')
 
 const attendanceController = require('./controllers/attendanceController')
 const loginController = require('./controllers/loginController')
+const adminController = require('./controllers/adminController')
 
 // connect to MongoDB
 mongoose.connect("mongodb://localhost/bilibilili", { useNewUrlParser: true }, (err, res) => {
@@ -29,6 +30,7 @@ expressInitializer.init(app, passport)
 // set up controllers
 attendanceController(app, passport)
 loginController(app, passport)
+adminController(app, passport)
 
 // host the server
 app.listen(3000)

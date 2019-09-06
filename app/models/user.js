@@ -1,11 +1,8 @@
 var mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-// User schema
+// define User schema
 var UserSchema = mongoose.Schema({
-    id: {
-        type: String
-    },
     email: {
         type: String
     },
@@ -14,12 +11,20 @@ var UserSchema = mongoose.Schema({
     },
     displayName: {
         type: String
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'user']
     }
 })
 
+// create and export the User model
 var User = module.exports = mongoose.model('User', UserSchema, 'users');
 
+
+// add function getUserByEmail to User
 module.exports.getUserByEmail = async function(email) {
+
     var query = { email: email };
 
     try {
@@ -30,6 +35,7 @@ module.exports.getUserByEmail = async function(email) {
 
 }
 
+// add function createUser to User
 module.exports.createUser = function(newUser, callback) {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -37,15 +43,4 @@ module.exports.createUser = function(newUser, callback) {
             newUser.save(callback);
         });
     });
-}
-
-module.exports.getUserById = function(id) {
-    var query = { id: id };
-    User.findOne(query, function(err, data) {
-        if (err) {
-            return null
-        } else {
-            return data
-        }
-    })
 }

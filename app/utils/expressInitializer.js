@@ -6,10 +6,17 @@ const flash = require('express-flash')
 const session = require('express-session')
 const favicon = require('serve-favicon')
 
+/**
+ * Initialize the configurations of Express and Passport instances
+ * @param {*} app the Express instance
+ * @param {*} passport the Passport instance
+ */
 function init(app, passport) {
 
-    // set template engine to be ejs
+    // set the directory to views
     app.set('views', __dirname + '/../views')
+
+    // set template engine to be ejs
     app.set("view engine", "ejs")
 
     // set middleware
@@ -33,7 +40,8 @@ function init(app, passport) {
     app.use(express.static(path.join(__dirname, '/../public/css')))
     app.use(express.static(path.join(__dirname, '/../public/js')))
     app.use(express.static(path.join(__dirname, '/../public/weights')))
-    app.use(favicon(path.join(__dirname, '/../public/assets/face-recognition.jpg')))
+    app.use(favicon(path.join(__dirname, '/../public/assets/logo.png')))
 }
 
+// export the init function
 module.exports.init = init
