@@ -20,9 +20,9 @@ module.exports = function(app, passport) {
         function(req, res) {
 
             if (req.user.role == "admin") {
-                res.redirect('/admin')
+                res.render('admin')
             } else {
-                res.redirect('/login')
+                res.render('login')
             }
         }
     )
@@ -40,34 +40,32 @@ module.exports = function(app, passport) {
 
         // if no user is found, return the change password page
         if (user == null) {
-            res.redirect(url.format({
-                pathname: "/changePassword",
-                query: {
-                    "error": "No user with this email is found"
-                }
-            }))
+            res.render("changePassword", {
+                "msg": "No user with this email is found",
+                "msgType": "error"
+            })
+            return
         }
+
 
         // check the credentials
         await bcrypt.compare(req.body.oldPassword, user.password, (err, isValid) => {
 
             if (err) {
-                res.redirect(url.format({
-                    pathname: "/changePassword",
-                    query: {
-                        "error": "Unknown error occurred."
-                    }
-                }))
+                res.render("changePassword", {
+                    "msg": "Unknown error occurred",
+                    "msgType": "error"
+                })
+                return
             }
 
             // if credentials are incorrect, return the change password page
             if (!isValid) {
-                res.redirect(url.format({
-                    pathname: "/changePassword",
-                    query: {
-                        "error": "Invalid credentials."
-                    }
-                }))
+                res.render("changePassword", {
+                    "msg": "Invalid credentials",
+                    "msgType": "error"
+                })
+                return
             }
 
             // update the user password and return to the login page
@@ -79,12 +77,11 @@ module.exports = function(app, passport) {
                         const query = { email: req.body.email }
 
                         User.findOneAndUpdate(query, user, function(err, doc) {
-                            res.redirect(url.format({
-                                pathname: "/login",
-                                query: {
-                                    "message": "Your password is changed successfully"
-                                }
-                            }))
+                            rres.render("changePassword", {
+                                "msg": "Your password has been changed successfully!",
+                                "msgType": "success"
+                            })
+                            return
                         });
                     });
                 });
