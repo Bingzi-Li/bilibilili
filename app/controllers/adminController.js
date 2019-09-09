@@ -9,4 +9,22 @@ module.exports = function(app, passport) {
         function(req, res) {
             res.render('admin')
         })
+
+    // redirect the user to the manage students page
+    app.get('/admin/manageStudents', middleware.isLoggedIn,
+        function(req, res) {
+            res.render('manageStudents')
+        })
+
+    // redirect the user to the manage sessions page
+    app.get('/admin/manageSessions', middleware.isLoggedIn,
+        function(req, res) {
+            res.render('manageSessions')
+        })
+
+    // redirect the user to the manage staff page
+    app.get('/admin/manageStaff', middleware.isLoggedIn,
+        function(req, res) {
+            res.render('manageStaff')
+        })
 }
