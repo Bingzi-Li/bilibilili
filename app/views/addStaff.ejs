@@ -31,10 +31,10 @@
                 <li>
                     <a href="/admin">Home</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/manageStaff">Manage Staff</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/admin/manageStudents">Manage Students</a>
                 </li>
                 <li>
@@ -72,20 +72,33 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link btn" href="#">Button 1</a>
-                            </li>
                             <li class="nav-item">
-                                <a class="nav-link btn" href="#">Button 2</a>
+                                <a class="nav-link btn" href="/admin/manageStaff">View Staff</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link btn" href="/admin/manageStaff/add">Add staff</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
-            <h2>Blah</h2>
-            <p>xxxxxxxxx</p>
+            <div class="container w-50 mt-5">
+                <h3>Add Staff</h3>
+                <form action="/admin/manageStaff/add" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Display Name</label>
+                        <input type="text" class="form-control" placeholder="Enter display name">
+                    </div>
 
+                    <small id="emailHelp" class="form-text text-muted">The default password is "ntuniubi"</small>
+                    <button type="submit" class="btn btn-primary mt-2">Create Staff Account</button>
+                </form>
+            </div>
         </div>
     </div>
 

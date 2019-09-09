@@ -34,10 +34,10 @@
                 <li>
                     <a href="/admin/manageStaff">Manage Staff</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/admin/manageStudents">Manage Students</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/manageSessions">Manage Sessions</a>
                 </li>
                 <li>
@@ -66,25 +66,44 @@
                         <span></span>
                         <span></span>
                     </button>
+
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link btn" href="#">Button 1</a>
-                            </li>
                             <li class="nav-item">
-                                <a class="nav-link btn" href="#">Button 2</a>
+                                <a class="nav-link btn" href="/admin/manageSessions">View Sessions</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link btn" href="/admin/manageSessions/add">Add Sessions</a>
                             </li>
                         </ul>
                     </div>
+
                 </div>
             </nav>
 
-            <h2>Blah</h2>
-            <p>xxxxxxxxx</p>
+            <div class="container w-50 mt-5">
+                <h3>Add Session</h3>
+                <form action="/admin/manageSessions/add" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Session Name</label>
+                        <input type="text" name="sessionName" class="form-control" aria-describedby="emailHelp" placeholder="Enter session name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email of Person-in-charge</label>
+                        <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Number of Sessions</label>
+                        <input type="number" name="numOfSession" class="form-control" aria-describedby="emailHelp" placeholder="Enter a number">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-2">Create New Session</button>
+                </form>
+            </div>
 
         </div>
     </div>
