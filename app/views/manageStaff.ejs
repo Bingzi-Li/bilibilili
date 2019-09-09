@@ -9,12 +9,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/alertify.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
     <script src="/alertify.js"></script>
     <script src="/index.js"></script>
 </head>
@@ -84,23 +89,23 @@
                 </div>
             </nav>
 
-            <div class="container-fluid text-center">
-                <h3>Staff List</h3>
-                <table class="table table-hover mt-5">
+            <div>
+                <h3 class="text-center">Staff List</h3>
+                <table class="table table-hover table-striped mt-5" id="staffTable">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col ">Name</th>
+                            <th scope="col ">Email</th>
+                            <th scope="col ">Edit</th>
+                            <th scope="col ">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>MyProf</td>
                             <td>prof@ntu.edu.sg</td>
-                            <td><a href="#" onclick="editUser();"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="#" onclick="deleteUser();"><i class="fas fa-trash-alt"></i></a></td>
+                            <td><a href="# " onclick="editUser(); "><i class="fas fa-edit "></i></a></td>
+                            <td><a href="# " onclick="deleteUser(); "><i class="fas fa-trash-alt "></i></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,12 +114,14 @@
         </div>
     </div>
 
-    <script type="text/javascript">
+    <script type="text/javascript ">
         $(document).ready(function() {
             $('#sidebarCollapse').on('click', function() {
                 $('#sidebar').toggleClass('active');
                 $(this).toggleClass('active');
             });
+
+            $('#staffTable').DataTable();
         });
     </script>
 </body>
