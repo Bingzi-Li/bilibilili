@@ -13,21 +13,21 @@ module.exports = function(app, passport) {
     // authenticate the user and redirect them to different page based on role
     // if authentication fails, return to the login page
     app.post('/login',
-//        passport.authenticate('local', {
-//            failureRedirect: "/login",
-//            failureFlash: true
-//        }),
-//        function(req, res) {
-//
-//            if (req.user.role == "admin") {
-//                res.render('admin')
-//            } else {
-//                res.render('login')
-//            }
-            function(req, res) {
+        passport.authenticate('local', {
+            failureRedirect: "/login",
+            failureFlash: true
+        }),
+        function(req, res) {
+
+            if (req.user.role == "admin") {
                 res.render('admin')
+            } else {
+                res.render('login')
             }
+    }
     )
+    
+    
 
     // redirect the user to the change password page
     app.get('/changePassword', function(req, res) {
