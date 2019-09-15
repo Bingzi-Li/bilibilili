@@ -1,6 +1,7 @@
 const databaseInitializer = require('./utils/databaseInitializer')
 const passportInitializer = require('./utils/passportInitializer')
 const expressInitializer = require('./utils/expressInitializer')
+const validator = require('express-validator')
 
 const express = require('express')
 const mongoose = require('mongoose')
