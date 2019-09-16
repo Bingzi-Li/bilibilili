@@ -142,10 +142,10 @@
         var msgType = null
         var msg = null
         $(document).ready(function() {
-            <% if (locals.msgType) { %>
+            if (locals.msgType) {
             msg = "<%=msg%>"
             msgType = "<%=msgType%>"
-            <% } %>
+            }
             
             if(msg != null){
                 $('#uploadError').show();

@@ -49,25 +49,7 @@ module.exports = function(app, passport){
             res.render('addStaff')
         })
     
-    app.post('/manageStudents', [
-        check('photo1').isLength({min: 1}),
-        check('photo2').isLength({min: 1}),
-        check('photo3').isLength({min: 1})
-    ],
-    (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            // display error message
-            res.render("manageStudents", {
-                    "msg": "Please upload exactly three photos.",
-                    "msgType": "error"
-                })
-        }
-        else{
-            //save to DB
-        }
-    }
-            )
+    
     
 }
    

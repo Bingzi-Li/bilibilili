@@ -30,3 +30,16 @@ module.exports.getStudentByEmail = async function(email) {
     }
 
 }
+
+// find certain student by inputting student matric number, used when choosing student to upload photo -1509
+module.exports.getStudentById = async function(matricNumber){
+
+    var query = { matricNumber: matricNumber};
+
+    try{
+        return await Student.findOne(query)
+    } catch (err){
+        console.log(err)
+    }
+
+}

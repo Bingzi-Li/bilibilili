@@ -1,5 +1,8 @@
 const Student = require('../models/student')
 const middleware = require('../utils/middleware')
+const { check, validationResult } = require('express-validator')
+const multer = require("multer");
+
 
 // export the photo Controller
 // Bind with 'cancel' button 
@@ -26,8 +29,33 @@ module.exports = function(app, passport){
                 "msgType": "error"
             })
             return
+        } 
+        else{
+            
         }
+    })
 
+// 2 app.post ????????????????????????????????????????????????? /photo????????????????
+    app.post('/manageStudents/photo', [
+        check('photo1').isLength({min: 1}),
+        check('photo2').isLength({min: 1}),
+        check('photo3').isLength({min: 1})
+    ],
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // display error message
+            res.render("manageStudents", {
+                    "msg": "Please upload exactly three photos.",
+                    "msgType": "error"
+                })
+        }
+        else{
+            //save to DB
+        }
     })
 
 }
+
+
+        
