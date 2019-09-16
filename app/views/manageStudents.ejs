@@ -8,19 +8,26 @@
     <title>Admin</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/alertify.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <script src="alertify.js"></script>
-    <script src="index.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="/alertify.js"></script>
+    <script src="/index.js"></script>
+
 </head>
 
 <body>
-
     <div class="wrapper">
+
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
@@ -55,36 +62,74 @@
             </ul>
         </nav>
 
-        <!-- Page Content Holder -->
+        <!-- Page Content -->
         <div id="content">
-
             <nav class="navbar navbar-expand-lg navbar-light bg-light dashboard-navbar">
                 <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="dashboard-navbar-btn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <button type="button" id="sidebarCollapse" class="btn btn-info" style="border:none;">
+                        <i class="fas fa-expand" style="color:black"></i>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link btn" href="#">Button 1</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn" href="#">Button 2</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
+            <div class="alert alert-danger alert-dismissible fade collapse" role="alert" id="uploadError">
+                <p>{{msg}}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-            <h2>Blah</h2>
-            <p>xxxxxxxxx</p>
+            <div>
+                <h3 class="text-center">Student List</h3>
+                <table class="table table-hover table-striped mt-5" id="studentTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Matric No.</th>
+                            <th scope="col">Upload Photo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wowotou HeHe</td>
+                            <td>U1234567L</td>
+                            <td><button type="button" class="fas fa-upload" data-toggle="modal" data-target="#uploadModal"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Upload photos -->
+    <div id="uploadModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Photos</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+                    <form method='post' action='/manageStudents' enctype="multipart/form-data">
+                        Please select 3 photos of the student to upload:
+                        <br>
+                        <input type='file' name='photo1' id='photo1' class='form-control' accept="image/jpeg">
+                        <br>
+                        <input type='file' name='photo2' id='photo2' class='form-control' accept="image/jpeg">
+                        <br>
+                        <input type='file' name='photo3' id='photo3' class='form-control' accept="image/jpeg">
+                        <br>
+                        <button type="submit" class="btn btn-primary mt-2" id='upload'>Upload</button>
+                    </form>
+
+                    <!-- Preview-->
+                    <div id='preview'></div>
+                    <!--if have time, can do-->
+                </div>
+
+            </div>
 
         </div>
     </div>
@@ -95,8 +140,26 @@
                 $('#sidebar').toggleClass('active');
                 $(this).toggleClass('active');
             });
+            $('#studentTable').DataTable();
         });
     </script>
+
+    <script>
+        // how to check the variable??
+        var msgType = null
+        var msg = null
+        $(document).ready(function() {
+            <% if (locals.msgType) { %>
+            msg = "<%=msg%>"
+            msgType = "<%=msgType%>"
+            <% } %>
+
+            if (msg != null) {
+                $('#uploadError').show();
+            }
+        })
+    </script>
+
 </body>
 
 </html>
