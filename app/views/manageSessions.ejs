@@ -1,136 +1,152 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/alertify.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<%- include('partial/head', {title: "Admin"}) %>
 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <body>
 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Admin Dashboard</h3>
+                </div>
 
-    <script src="/alertify.js"></script>
-    <script src="/index.js"></script>
-</head>
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="/admin">Home</a>
+                    </li>
+                    <li>
+                        <a href="/admin/manageStaff">Manage Staff</a>
+                    </li>
+                    <li>
+                        <a href="/admin/manageStudents">Manage Students</a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin/manageSessions">Manage Sessions</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ntu.edu.sg/Pages/home.aspx" target="_blank">About NTU</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ntu.edu.sg/FacultyStaff/Pages/StaffServices.aspx" target="_blank">Contact</a>
+                    </li>
+                </ul>
 
-<body>
+                <ul class="list-unstyled CTAs mt-3">
+                    <li>
+                        <a href="/login" class="button">Log out</a>
+                    </li>
+                </ul>
+            </nav>
 
-    <div class="wrapper">
-        <!-- Sidebar Holder -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Admin Dashboard</h3>
-            </div>
+            <!-- Page Content Holder -->
+            <div id="content">
 
-            <ul class="list-unstyled components">
-                <li>
-                    <a href="/admin">Home</a>
-                </li>
-                <li>
-                    <a href="/admin/manageStaff">Manage Staff</a>
-                </li>
-                <li>
-                    <a href="/admin/manageStudents">Manage Students</a>
-                </li>
-                <li class="active">
-                    <a href="/admin/manageSessions">Manage Sessions</a>
-                </li>
-                <li>
-                    <a href="https://www.ntu.edu.sg/Pages/home.aspx" target="_blank">About NTU</a>
-                </li>
-                <li>
-                    <a href="https://www.ntu.edu.sg/FacultyStaff/Pages/StaffServices.aspx" target="_blank">Contact</a>
-                </li>
-            </ul>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light dashboard-navbar">
+                    <div class="container-fluid">
 
-            <ul class="list-unstyled CTAs mt-3">
-                <li>
-                    <a href="/login" class="button">Log out</a>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Page Content Holder -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light dashboard-navbar">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="dashboard-navbar-btn">
+                        <button type="button" id="sidebarCollapse" class="dashboard-navbar-btn">
                         <i class="fas fa-expand" style="color:black"></i>
                     </button>
 
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link btn" href="/admin/manageSessions">View Sessions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn" href="/admin/manageSessions/add">Add Sessions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn" href="/admin/manageSessions/assignStudent">Assign Students</a>
-                            </li>
-                        </ul>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link btn" href="/admin/manageSessions">View Sessions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" href="/admin/manageSessions/add">Add Sessions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" href="/admin/manageSessions/assignStudent">Assign Students</a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
+                </nav>
 
+                <div>
+                    <h3 class="text-center">Session List</h3>
+                    <table class="table table-hover table-striped mt-5" id="sessionTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Session</th>
+                                <th scope="col">Staff-in-charge</th>
+                                <th scope="col">Staff Email</th>
+                                <th scope="col">Number of Sessions</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% sessionList.forEach(function(session) { %>
+                                <tr>
+                                    <td>
+                                        <%= session.sessionName %>
+                                    </td>
+                                    <td>
+                                        <%= session.staffInCharge %>
+                                    </td>
+                                    <td>
+                                        <%= session.staffEmail %>
+                                    </td>
+                                    <td>
+                                        <%= session.numOfSessions %>
+                                    </td>
+                                    <td><a href="#" onclick="editSession(this);"><i class="fas fa-edit"></i></a></td>
+                                    <td><a href="#" onclick="deleteSession(this);"><i class="fas fa-trash-alt"></i></a></td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
                 </div>
-            </nav>
 
-            <div>
-                <h3 class="text-center">Session List</h3>
-                <table class="table table-hover table-striped mt-5" id="sessionTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Session</th>
-                            <th scope="col">Staff-in-charge</th>
-                            <th scope="col">Staff Email</th>
-                            <th scope="col">Number of Sessions</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CZ3002 TS3 Lab</td>
-                            <td>My Prof</td>
-                            <td>prof@ntu.edu.sg</td>
-                            <td>5</td>
-                            <td><a href="#" onclick="editSession();"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="#" onclick="deleteSession();"><i class="fas fa-trash-alt"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
-
         </div>
-    </div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
+        <script type="text/javascript">
+            var msgType = null
+            var msg = null
+
+            $(document).ready(function() {
+                alertify.set('notifier', 'position', 'top-center');
+
+                <% if (locals.msgType) { %>
+                msg = "<%=msg%>"
+                msgType = "<%=msgType%>"
+                <% } %>
+
+                switch (msgType) {
+                    case "success":
+                        alertify.success(msg)
+                        break
+
+                    case "error":
+                        alertify.error(msg)
+                        break
+
+                    case "warning":
+                        alertify.warning(msg)
+                        break
+
+                    default:
+                        break
+                }
+
+                $('#sidebarCollapse').on('click', function() {
+                    $('#sidebar').toggleClass('active');
+                    $(this).toggleClass('active');
+                });
+
+                $('#sessionTable').DataTable();
             });
-
-            $('#sessionTable').DataTable();
-        });
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

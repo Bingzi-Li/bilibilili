@@ -16,10 +16,10 @@
                     <li>
                         <a href="/admin">Home</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/admin/manageStaff">Manage Staff</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/admin/manageStudents">Manage Students</a>
                     </li>
                     <li>
@@ -47,57 +47,51 @@
                     <div class="container-fluid">
 
                         <button type="button" id="sidebarCollapse" class="dashboard-navbar-btn">
-                        <i class="fas fa-expand" style="color:black"></i>
-                    </button>
+                                        <i class="fas fa-expand" style="color:black"></i>
+                                    </button>
+
                         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+                                        <i class="fas fa-align-justify"></i>
+                                    </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link btn" href="/admin/manageStaff">View Staff</a>
-                                </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn" href="/admin/manageStaff/add">Add staff</a>
+                                    <a class="nav-link btn" href="/admin/manageStudents">View Students</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link btn" href="/admin/manageStudents/add">Add Student</a>
                                 </li>
                             </ul>
                         </div>
+
                     </div>
                 </nav>
 
-                <div>
-                    <h3 class="text-center">Staff List</h3>
-                    <table class="table table-hover table-striped mt-5" id="staffTable">
-                        <thead>
-                            <tr>
-                                <th scope="col ">Name</th>
-                                <th scope="col ">Email</th>
-                                <th scope="col ">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% users.forEach(function(user) { %>
-                                <tr>
-                                    <td>
-                                        <%= user.displayName %>
-                                    </td>
-                                    <td>
-                                        <%= user.email %>
-                                    </td>
-                                    <td>
-                                        <a href="#" onclick="deleteUser(this)"><i class="fas fa-trash-alt "></i></a>
-                                    </td>
-                                </tr>
-                                <% }); %>
-                        </tbody>
-                    </table>
+                <div class="container w-50 mt-5">
+                    <h3>Add Student</h3>
+                    <form action="/admin/manageStudents/add" method="POST">
+                        <div class="form-group">
+                            <label for="nameInput">Student Name</label>
+                            <input type="text" name="name" id="nameInput" class="form-control" aria-describedby="emailHelp" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="matricNumberInput">Matriculation Number</label>
+                            <input type="text" name="matricNumber" id="matricNumberInput" class="form-control" aria-describedby="emailHelp" placeholder="Enter your matric number">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Number Email</label>
+                            <input type="email" name="email" id="emailInput" class="form-control" aria-describedby="emailHelp" placeholder="Enter your email">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2">Create New Student</button>
+                    </form>
                 </div>
 
             </div>
         </div>
 
-        <script type="text/javascript ">
+        <script type="text/javascript">
             var msgType = null
             var msg = null
 
@@ -130,10 +124,7 @@
                     $('#sidebar').toggleClass('active');
                     $(this).toggleClass('active');
                 });
-
-                $('#staffTable').DataTable();
-
-            })
+            });
         </script>
     </body>
 

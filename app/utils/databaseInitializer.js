@@ -30,9 +30,9 @@ function initDefaultData() {
             // create the default user
             if (data.length == 0) {
                 User.createUser(new User({
-                    email: "prof@ntu.edu.sg",
+                    email: "SinnoPan@ntu.edu.sg",
                     password: "ntuniubi",
-                    displayName: "MyProf",
+                    displayName: "Sinno Pan",
                     role: "user"
                 }))
             }

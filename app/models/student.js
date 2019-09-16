@@ -11,6 +11,11 @@ var StudentSchema = mongoose.Schema({
     email: {
         type: String
     },
+    photoStatus: {
+        type: String,
+        enum: ['available', 'unavailable'],
+        default: 'unavailable'
+    },
     photo: [String]
 })
 

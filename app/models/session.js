@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 
 // define Student schema
 var SessionSchema = mongoose.Schema({
-    session: {
+    sessionName: {
         type: String
     },
     staffInCharge: {
