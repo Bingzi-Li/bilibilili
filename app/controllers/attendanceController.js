@@ -3,6 +3,7 @@ const middleware = require('../utils/middleware')
 const Session = require('../models/session')
 const Student = require('../models/student')
 const fs = require('fs')
+const Json2CsvParser = require('json2csv').Parser
 
 // export the attendance controller
 module.exports = function(app, passport) {
@@ -128,4 +129,45 @@ module.exports = function(app, passport) {
                 }
             })
         })
+
+    // export attendance list csv
+    app.get('/staff/:staffEmail/:sessionName/:fileName', middleware.isLoggedIn,
+        function(req, res) {
+            Session.findOne({ staffEmail: req.params.staffEmail, sessionName: req.params.sessionName },
+                function(err, session) {
+                    console.log(session)
+
+                    var fields = ["name", "matric number"]
+                    var rows = []
+
+                    for (var i = 0; i < session.record[0].attendance.length; i++) {
+                        fields.push(i.toString())
+                    }
+
+                    for (var j = 0; j < session.record.length; j++) {
+                        row = {}
+                        row["name"] = session.record[j].name
+                        row["matric number"] = session.record[j].matricNumber
+                        for (var k = 0; k < session.record[j].attendance.length; k++) {
+                            row[k.toString()] = session.record[j].attendance[k]
+                        }
+                        rows.push(row)
+                    }
+
+                    const json2csvParser = new Json2CsvParser({ fields });
+                    const result = json2csvParser.parse(rows);
+                    var dir = __dirname + '/../public/attendanceList/' + req.params.fileName
+                    fs.writeFile(dir, [result], "utf8", function(err) {
+                        if (err) {
+                            console.log(err)
+                            res.write("Error occurred")
+                            res.end()
+                        } else {
+                            res.download(dir, req.params.fileName)
+                        }
+                    });
+
+                })
+        })
+
 }

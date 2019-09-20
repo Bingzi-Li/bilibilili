@@ -68,6 +68,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link btn" href="#" onclick="editAttendance()">Edit Attendance</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" href="#" id="downloadAttendanceListBtn">Export as CSV</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -210,6 +213,8 @@
         <script type="text/javascript ">
             var msgType = null
             var msg = null
+            var currentUserEmail = null
+            var currentSessionName = null
 
             $(document).ready(function() {
                 alertify.set('notifier', 'position', 'top-center');
@@ -218,6 +223,15 @@
                 msg = "<%=msg%>"
                 msgType = "<%=msgType%>"
                 <% } %>
+
+                <% if (locals.session) { %>
+                currentUserEmail = "<%=session.staffEmail%>"
+                currentSessionName = "<%=session.sessionName%>"
+                <% } %>
+
+                downloadAttendanceListBtn
+
+                $("#downloadAttendanceListBtn").attr("href", "/staff/" + currentUserEmail + "/" + currentSessionName + '/' + currentSessionName + '.csv')
 
                 switch (msgType) {
                     case "success":
