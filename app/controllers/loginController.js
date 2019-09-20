@@ -20,9 +20,9 @@ module.exports = function(app, passport) {
         function(req, res) {
 
             if (req.user.role == "admin") {
-                res.render('admin')
+                res.redirect('/admin')
             } else {
-                res.render('login')
+                res.redirect('/staff')
             }
         }
     )

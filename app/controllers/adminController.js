@@ -5,7 +5,7 @@ const Session = require('../models/session')
 const Student = require('../models/student')
 const multer = require('multer')
 const fs = require('fs')
-const fsExtra = require('fs-extra')
+const csv = require('csvtojson')
 
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -21,7 +21,11 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage }).array('studentPhoto', 3)
+var uploadPhoto = multer({ storage: storage }).array('studentPhoto', 4)
+
+var uploadCSV = multer({
+    storage: multer.memoryStorage()
+}).single("csvFile")
 
 // export the login controller
 module.exports = function(app, passport) {
@@ -95,7 +99,7 @@ module.exports = function(app, passport) {
 
     // save uploaded photos
     app.post('/manageStudents/uploadPhoto/:matricNumber', middleware.isLoggedIn, function(req, res) {
-        upload(req, res, function(err) {
+        uploadPhoto(req, res, function(err) {
             if (err) {
                 Student.find({}, function(err, data) {
                     res.render("manageStudents", {
@@ -197,14 +201,72 @@ module.exports = function(app, passport) {
     // redirect the user to the manage staff page
     app.get('/admin/manageSessions/assignStudent', middleware.isLoggedIn,
         function(req, res) {
-            res.render('assignStudent')
+            Session.find({}, function(err, data) {
+                res.render('assignStudent', {
+                    sessionList: data
+                })
+            })
+
         }
     )
 
     // assign students
-    app.post('/admin/manageSessions/assignStudent', middleware.isLoggedIn,
-        function(req, res) {}
-    )
+    app.post('/admin/manageSessions/assignStudent/', middleware.isLoggedIn,
+        uploadCSV,
+        function(req, res) {
+            csv({
+                    noheader: false,
+                    output: "csv"
+                })
+                .fromString(req.file.buffer.toString())
+                .then((csvRow) => {
+                    Session.findOne({ sessionName: req.body.sessionChoice },
+                        async function(err, session) {
+                            const emails_to_add = [].concat.apply([], csvRow);
+
+                            for (var i = 0; i < session.record.length; i++) {
+                                if (!emails_to_add.includes(session.record[i].email)) {
+                                    await session.record.splice(i)
+                                    i--
+                                } else {
+                                    await emails_to_add.splice(emails_to_add.indexOf(session.record[i].email))
+                                }
+                            }
+
+                            for (var i = 0; i < emails_to_add.length; i++) {
+                                await Student.findOne({ email: emails_to_add[i] },
+                                    async function(err, data) {
+                                        if (data) {
+                                            var att = [];
+
+                                            for (var i = 0; i < session.numOfSessions; i++) {
+                                                await att.push("pending");
+                                            }
+                                            session.record.push({
+                                                name: data.name,
+                                                matricNumber: data.matricNumber,
+                                                attendance: att
+                                            })
+                                        }
+
+                                    })
+                            }
+
+                            Session.findOneAndUpdate({ sessionName: session.sessionName }, session, function(err, doc) {
+                                Session.find({}, function(err, data) {
+                                    res.render('manageSessions', {
+                                        sessionList: data,
+                                        "msg": "Student assigned successfully!",
+                                        "msgType": "success"
+                                    })
+                                })
+                            });
+
+
+                        })
+                })
+        })
+
 
     // redirect the user to the manage staff page
     app.get('/admin/manageStaff', middleware.isLoggedIn,

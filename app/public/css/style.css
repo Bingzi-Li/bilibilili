@@ -18,6 +18,15 @@
     width: 500px
 }
 
+.full-width {
+    width: 100%
+}
+
+.lg-margin-left {
+    margin-left: 25%;
+    margin-right: 25%
+}
+
 
 /* ---------------------------------------------------
     Canvas over video
@@ -208,11 +217,17 @@ a:focus {
     background: #fff;
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
+#sidebar ul li.active>a {
     color: #fff;
     background: #29648A;
 }
+
+
+/* #sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #29648A;
+} */
 
 a[data-toggle="collapse"] {
     position: relative;

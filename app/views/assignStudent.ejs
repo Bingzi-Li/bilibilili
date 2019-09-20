@@ -73,19 +73,24 @@
 
                 <div class="container w-50">
                     <h3>Assign Student</h3>
-                    <form action="">
+                    <form action="/admin/manageSessions/assignStudent" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="sessionChoice">Session</label>
-                            <select class="form-control" id="sessionChoice">
-                                  <option>CZ3002 TS3 Lab</option>
-                                  <option>xxx</option>
+                            <select class="form-control" id="sessionChoice" name="sessionChoice">
+                                    <%if (sessionList) { %>
+                                    <% sessionList.forEach(function(session) { %>
+                                    <option><%= session.sessionName %></option>
+                                    <% }); %>
+                                    <% } else { %>
+                                        <option value="" disabled></option>
+                                      <% } %>
                                 </select>
                         </div>
 
                         <label for="customFile">Upload Student List File</label>
                         <div class="custom-file">
 
-                            <input type="file" class="custom-file-input" id="customFile" name="filename">
+                            <input type="file" class="custom-file-input" accept=".csv" id="customFile" name="csvFile">
                             <label class="custom-file-label" for="customFile">Choose CSV File</label>
                         </div>
                         <div class="mt-3">

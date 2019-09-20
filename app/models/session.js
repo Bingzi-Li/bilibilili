@@ -15,8 +15,9 @@ var SessionSchema = mongoose.Schema({
         type: String
     },
     record: [{
-        matricNum: String,
-        attendace: [String]
+        name: String,
+        matricNumber: String,
+        attendance: [String]
     }]
 })
 

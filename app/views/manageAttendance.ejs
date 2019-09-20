@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('partial/head', {title: "Admin"}) %>
+
+    <body>
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Staff Dashboard</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="/staff">Home</a>
+                    </li>
+                    <li class="active">
+                        <a href="#sessionTabs" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Sessions</a>
+                        <ul class="list-unstyled" id="sessionTabs">
+                            <% sessionList.forEach(function(session) { %>
+                                <li>
+                                    <a href="/staff/<%=user.email%>/<%=session.sessionName%>">
+                                        <%= session.sessionName %>
+                                    </a>
+
+                                </li>
+                                <% }); %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="https://www.ntu.edu.sg/Pages/home.aspx" target="_blank">About NTU</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ntu.edu.sg/FacultyStaff/Pages/StaffServices.aspx" target="_blank">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs mt-3">
+                    <li>
+                        <a href="/logout" class="button">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light dashboard-navbar">
+                    <div class="container-fluid">
+
+                        <button type="button" id="sidebarCollapse" class="dashboard-navbar-btn">
+                        <i class="fas fa-expand" style="color:black"></i>
+                    </button>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link btn" href="#">View Students</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" href="#" onclick="selectSession()">Take Attendance</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" href="#" onclick="editAttendance()">Edit Attendance</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div>
+                    <h3 class="text-center">Attendance List -
+                        <%=session.sessionName%>
+                    </h3>
+                    <table class="table table-hover table-striped mt-5" id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th scope="col ">Name</th>
+                                <th scope="col ">Email</th>
+                                <%if (session.numOfSessions > 0) { %>
+                                    <% for(var i=0; i<session.numOfSessions; i++) { %>
+                                        <th>
+                                            <%= i+1 %>
+                                        </th>
+                                        <% } %>
+                                            <% } %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%if (session.record) { %>
+                                <% session.record.forEach(function(record) { %>
+                                    <tr>
+                                        <td>
+                                            <%= record.name %>
+                                        </td>
+                                        <td>
+                                            <%= record.matricNumber %>
+                                        </td>
+                                        <% record.attendance.forEach(function(att) {%>
+                                            <td>
+                                                <%= att %>
+                                            </td>
+                                            <% }) %>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Start Attendance Taking -->
+        <div id="sessionChoiceModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Start Attendance Taking</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form -->
+                        <form method='post' action='/staff/<%=user.email%>/<%=session.sessionName%>/takeAttendance'>
+                            <div class="form-group">
+                                <label for="sessionChoiceInput">Please select the session:</label>
+                                <select class="form-control" name="sessionChoice" id="sessionChoiceInput">
+                                        <%if (session.record) { %>
+                                            <% for(var i=0; i<session.record[0].attendance.length;i++){ %>
+                                                        <option>
+                                                            <%= i+1 %>
+                                                        </option>
+                                                <% }; %>
+                                                    <% } %>
+                                          </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mt-5">Take Attendance</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal: Edit Attendance Status -->
+        <div id="editAttendanceModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Attendance</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form -->
+                        <form method='post' action='/staff/<%=user.email%>/<%=session.sessionName%>/editAttendance'>
+                            <div class="form-group">
+                                <label for="matricNumberInput">Matric Number</label>
+                                <select class="form-control" name="matricNumber" id="matricNumberInput">
+                                        <%if (session.record) { %>
+                                            <% session.record.forEach(function(record) { %>
+                                                    <option>
+                                                        <%= record.matricNumber %>
+                                                    </option>
+                                                <% }); %>
+                                                    <% } else { %>
+                                                        <option value="" disabled>NULL</option>
+                                                        <% } %>
+                                          </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceSessionInput">Select the session:</label>
+                                <select class="form-control" name="attendanceSession" id="attendanceSessionInput">
+                                            <%if (session.record) { %>
+                                                <% for(var i=0; i<session.record[0].attendance.length; i++) { %>
+                                                            <option>
+                                                                <%= i+1 %>
+                                                            </option>
+                                                    <% } %>
+                                                        <% } %>
+                                              </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="statusChoiceInput">Status</label>
+                                <select class="form-control" name="statusChoice" id="statusChoiceInput">
+                                    <option value="present">present</option>
+                                    <option value="absent">absent</option>
+                                    <option value="pending">pending</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mt-5">Take Attendance</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <script type="text/javascript ">
+            var msgType = null
+            var msg = null
+
+            $(document).ready(function() {
+                alertify.set('notifier', 'position', 'top-center');
+
+                <% if (locals.msgType) { %>
+                msg = "<%=msg%>"
+                msgType = "<%=msgType%>"
+                <% } %>
+
+                switch (msgType) {
+                    case "success":
+                        alertify.success(msg)
+                        break
+
+                    case "error":
+                        alertify.error(msg)
+                        break
+
+                    case "warning":
+                        alertify.warning(msg)
+                        break
+
+                    default:
+                        break
+                }
+
+                $('#sidebarCollapse').on('click', function() {
+                    $('#sidebar').toggleClass('active');
+                    $(this).toggleClass('active');
+                });
+
+                $('#attendanceTable').DataTable();
+
+            })
+        </script>
+    </body>
+
+</html>

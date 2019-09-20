@@ -1,1 +1,0 @@
-define("@baidu/search-sug",["@baidu/search-sug/sug/index"],function(u){return u});

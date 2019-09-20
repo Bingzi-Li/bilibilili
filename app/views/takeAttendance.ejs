@@ -1,0 +1,125 @@
+<html>
+<%- include('partial/head', {title: "Admin"}) %>
+    <script defer type="text/javascript" src="/face-api.js"></script>
+    <script defer type="text/javascript" src="/faceRecognition.js"></script>
+
+    <body>
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Attendance Taking</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="/">Face Recognition</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs mt-3">
+                    <li>
+                        <a href="#" id="backToManageSession" class="button download">End</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light dashboard-navbar">
+                    <div class="container-fluid">
+
+                        <button type="button" id="sidebarCollapse" class="dashboard-navbar-btn">
+                        <i class="fas fa-expand" style="color:black"></i>
+                    </button>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link btn" href="#" onclick="startFaceRecognition()">Start</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="container lg-margin-left">
+                    <div style="position: relative" class="w-100">
+                        <video autoplay muted id="inputVideo" class='w-75'></video>
+                        <canvas id="overlay" class='w-75'></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal: Start Attendance Taking -->
+        <div id="confirmAttendanceModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Attendance</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="startFaceRecognition()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="confirmAttendanceButton">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="startFaceRecognition()">No</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var currentSessionName
+            var currentUserEmail
+            var currentSessionChoice
+
+            $(document).ready(function() {
+
+                <% if (locals.sessionName) { %>
+                currentSessionName = "<%=sessionName%>"
+                <% } %>
+
+                <% if (locals.sessionChoice) { %>
+                currentSessionChoice = "<%=sessionChoice%>"
+                <% } %>
+
+                <% if (locals.currentUserEmail) { %>
+                currentUserEmail = "<%=currentUserEmail%>"
+                <% } %>
+
+                $('#sidebarCollapse').on('click', function() {
+                    $('#sidebar').toggleClass('active');
+                    $(this).toggleClass('active');
+                });
+
+                $("#backToManageSession").attr("href", "/staff/" + currentUserEmail + "/" + currentSessionName)
+                getStudentPhotoPath()
+
+                // run the face detection
+                Promise.all(
+                    [
+                        // load models
+                        faceapi.nets.faceRecognitionNet.loadFromUri('/'),
+                        faceapi.nets.faceLandmark68Net.loadFromUri('/'),
+                        faceapi.nets.ssdMobilenetv1.loadFromUri('/')
+                    ]
+                ).then(start)
+            });
+        </script>
+
+    </body>
+
+</html>

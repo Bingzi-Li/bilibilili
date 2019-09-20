@@ -61,3 +61,11 @@ async function uploadPhoto(element) {
     $('#uploadForm').attr('action', "/manageStudents/uploadPhoto/" + studentMatricNumber)
     $('#uploadModal').modal()
 }
+
+function selectSession() {
+    $('#sessionChoiceModal').modal()
+}
+
+function editAttendance() {
+    $('#editAttendanceModal').modal()
+}
