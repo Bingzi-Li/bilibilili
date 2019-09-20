@@ -135,7 +135,6 @@ module.exports = function(app, passport) {
         function(req, res) {
             Session.findOne({ staffEmail: req.params.staffEmail, sessionName: req.params.sessionName },
                 function(err, session) {
-                    console.log(session)
 
                     var fields = ["name", "matric number"]
                     var rows = []
@@ -159,7 +158,7 @@ module.exports = function(app, passport) {
                     var dir = __dirname + '/../public/attendanceList/' + req.params.fileName
                     fs.writeFile(dir, [result], "utf8", function(err) {
                         if (err) {
-                            console.log(err)
+
                             res.write("Error occurred")
                             res.end()
                         } else {
