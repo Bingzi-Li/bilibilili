@@ -77,7 +77,7 @@ module.exports = function(app, passport) {
                         const query = { email: req.body.email }
 
                         User.findOneAndUpdate(query, user, function(err, doc) {
-                            rres.render("changePassword", {
+                            res.render("login", {
                                 "msg": "Your password has been changed successfully!",
                                 "msgType": "success"
                             })
