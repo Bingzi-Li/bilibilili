@@ -73,7 +73,7 @@
 
                 <div class="container w-50">
                     <h3>Assign Student</h3>
-                    <form action="/admin/manageSessions/assignStudent" method="post" enctype="multipart/form-data">
+                    <form action="/admin/manageSessions/assignStudent" method="post" enctype="multipart/form-data" onsubmit="return checkAssignStudent()">
                         <div class="form-group">
                             <label for="sessionChoice">Session</label>
                             <select class="form-control" id="sessionChoice" name="sessionChoice">
@@ -101,20 +101,20 @@
 
             </div>
         </div>
+        <%- include('partial/message') %>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
+                    $(".custom-file-input").on("change", function() {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                    });
                 });
-
-                $(".custom-file-input").on("change", function() {
-                    var fileName = $(this).val().split("\\").pop();
-                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                });
-            });
-        </script>
+            </script>
     </body>
 
 </html>

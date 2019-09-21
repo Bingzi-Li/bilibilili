@@ -147,11 +147,13 @@ function startFaceRecognition() {
 
 function confirmAttendanceModal(matric) {
     document.getElementById("confirmMessage").innerText = "Are you " + matric
-    $("#confirmAttendanceButton").click(function() { confirmAttendance(matric) });
+    document.getElementById("confirmAttendanceButton").onclick = function() { confirmAttendance(matric) };
+    //$("#confirmAttendanceButton").click(function() { confirmAttendance(matric) });
     $('#confirmAttendanceModal').modal()
 }
 
 function confirmAttendance(matric) {
+
     $.ajax({    
         type: "POST",
         url: "/staff/" + currentUserEmail + '/' + currentSessionName + '/takeAttendance/' + currentSessionChoice + '/' + matric,

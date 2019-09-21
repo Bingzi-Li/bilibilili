@@ -1,0 +1,36 @@
+<script>
+    var msgType = null
+    var msg = null
+    var flashError = null
+
+    $(document).ready(function() {
+        alertify.set('notifier', 'position', 'top-center');
+
+        <% if (locals.msgType) { %>
+        msg = "<%=msg%>"
+        msgType = "<%=msgType%>"
+        <% } %>
+
+        switch (msgType) {
+            case "success":
+                alertify.success(msg)
+                break
+
+            case "error":
+                alertify.error(msg)
+                break
+
+            case "warning":
+                alertify.warning(msg)
+                break
+
+            default:
+                break
+        }
+
+        <% if (messages.error) { %>
+        flashError = "<%=messages.error%>"
+        alertify.error(flashError)
+        <% } %>
+    })
+</script>

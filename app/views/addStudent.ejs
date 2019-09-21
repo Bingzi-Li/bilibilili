@@ -70,7 +70,7 @@
 
                 <div class="container w-50 mt-5">
                     <h3>Add Student</h3>
-                    <form action="/admin/manageStudents/add" method="POST">
+                    <form action="/admin/manageStudents/add" method="POST" onsubmit="return checkAddStudent()">
                         <div class="form-group">
                             <label for="nameInput">Student Name</label>
                             <input type="text" name="name" id="nameInput" class="form-control" aria-describedby="emailHelp" placeholder="Enter your name">
@@ -90,42 +90,16 @@
 
             </div>
         </div>
+        <%- include('partial/message') %>
+            <script type="text/javascript">
+                $(document).ready(function() {
 
-        <script type="text/javascript">
-            var msgType = null
-            var msg = null
-
-            $(document).ready(function() {
-                alertify.set('notifier', 'position', 'top-center');
-
-                <% if (locals.msgType) { %>
-                msg = "<%=msg%>"
-                msgType = "<%=msgType%>"
-                <% } %>
-
-                switch (msgType) {
-                    case "success":
-                        alertify.success(msg)
-                        break
-
-                    case "error":
-                        alertify.error(msg)
-                        break
-
-                    case "warning":
-                        alertify.warning(msg)
-                        break
-
-                    default:
-                        break
-                }
-
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
                 });
-            });
-        </script>
+            </script>
     </body>
 
 </html>

@@ -16,7 +16,7 @@ function deleteUser(element) {
 
 function deleteSession(element) {
     var sessionName = element.parentElement.parentElement.children[0].innerText
-
+    console.log(sessionName)
     $.ajax({
         url: "/admin/manageSessions/delete/" + sessionName.replace(" ", "*"),
         type: "delete",
@@ -68,4 +68,97 @@ function selectSession() {
 
 function editAttendance() {
     $('#editAttendanceModal').modal()
+}
+
+function checkAddStaff() {
+    var elementToCheck = [
+        document.getElementById("staffEmailInput"),
+        document.getElementById("staffDisplayName")
+    ]
+
+    for (var i = 0; i < elementToCheck.length; i++) {
+        if (elementToCheck[i].value == "") {
+            elementToCheck[i].focus()
+            alertify.warning("Invalid input")
+            return false
+        }
+    }
+
+    return true
+}
+
+function checkAddStudent() {
+    var elementToCheck = [
+        document.getElementById("nameInput"),
+        document.getElementById("matricNumberInput"),
+        document.getElementById("emailInput")
+    ]
+
+    for (var i = 0; i < elementToCheck.length; i++) {
+        if (elementToCheck[i].value == "") {
+            elementToCheck[i].focus()
+            alertify.warning("Invalid input")
+            return false
+        }
+    }
+
+    return true
+}
+
+function checkAddPhotos() {
+    var elementToCheck = [
+        document.getElementById("photo1"),
+        document.getElementById("photo1"),
+        document.getElementById("photo1")
+    ]
+
+    for (var i = 0; i < elementToCheck.length; i++) {
+        if (elementToCheck[i].files.length == 0) {
+            elementToCheck[i].focus()
+            alertify.warning("Please upload all 3 photos")
+            return false
+        }
+    }
+
+    return true
+}
+
+function checkAddSession() {
+    var elementToCheck = [
+        document.getElementById("sessionNameInput"),
+        document.getElementById("emailInput"),
+        document.getElementById("numOfSessionInput")
+    ]
+
+    for (var i = 0; i < elementToCheck.length; i++) {
+        if (elementToCheck[i].value == "") {
+            elementToCheck[i].focus()
+            alertify.warning("Invalid input")
+            return false
+        }
+    }
+
+    return true
+}
+
+function checkAssignStudent() {
+    var elementToCheck = [
+        document.getElementById("sessionChoice"),
+        document.getElementById("customFile"),
+    ]
+
+
+    if (elementToCheck[0].value == "") {
+        elementToCheck[0].focus()
+        alertify.warning("Invalid input")
+        return false
+    }
+
+    if (elementToCheck[1].files.length == 0) {
+        elementToCheck[1].focus()
+        alertify.warning("Please upload a csv file")
+        return false
+    }
+
+    return true
 }

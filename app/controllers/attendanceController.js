@@ -140,7 +140,7 @@ module.exports = function(app, passport) {
                     var rows = []
 
                     for (var i = 0; i < session.record[0].attendance.length; i++) {
-                        fields.push(i.toString())
+                        fields.push((i + 1).toString())
                     }
 
                     for (var j = 0; j < session.record.length; j++) {
@@ -148,7 +148,7 @@ module.exports = function(app, passport) {
                         row["name"] = session.record[j].name
                         row["matric number"] = session.record[j].matricNumber
                         for (var k = 0; k < session.record[j].attendance.length; k++) {
-                            row[k.toString()] = session.record[j].attendance[k]
+                            row[(k + 1).toString()] = session.record[j].attendance[k]
                         }
                         rows.push(row)
                     }

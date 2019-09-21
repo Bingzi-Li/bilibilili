@@ -107,44 +107,18 @@
 
             </div>
         </div>
+        <%- include('partial/message') %>
+            <script type="text/javascript">
+                $(document).ready(function() {
 
-        <script type="text/javascript">
-            var msgType = null
-            var msg = null
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
 
-            $(document).ready(function() {
-                alertify.set('notifier', 'position', 'top-center');
-
-                <% if (locals.msgType) { %>
-                msg = "<%=msg%>"
-                msgType = "<%=msgType%>"
-                <% } %>
-
-                switch (msgType) {
-                    case "success":
-                        alertify.success(msg)
-                        break
-
-                    case "error":
-                        alertify.error(msg)
-                        break
-
-                    case "warning":
-                        alertify.warning(msg)
-                        break
-
-                    default:
-                        break
-                }
-
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
+                    $('#sessionTable').DataTable();
                 });
-
-                $('#sessionTable').DataTable();
-            });
-        </script>
+            </script>
     </body>
 
 </html>

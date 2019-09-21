@@ -68,14 +68,14 @@
 
                 <div class="container w-50 mt-5">
                     <h3>Add Staff</h3>
-                    <form action="/admin/manageStaff/add" method="POST">
+                    <form action="/admin/manageStaff/add" method="POST" onsubmit="return checkAddStaff()">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="email" name="email" class="form-control " aria-describedby="emailHelp " placeholder="Enter email ">
+                            <input type="email" name="email" id="staffEmailInput" class="form-control " aria-describedby="emailHelp " placeholder="Enter email ">
                         </div>
                         <div class="form-group ">
                             <label for="exampleInputPassword1 ">Display Name</label>
-                            <input type="text " name="displayName" class="form-control " placeholder="Enter display name ">
+                            <input type="text " name="displayName" id="staffDisplayName" class="form-control " placeholder="Enter display name ">
                         </div>
 
                         <small id="emailHelp " class="form-text text-muted ">The default password is "ntuniubi "</small>
@@ -84,15 +84,15 @@
                 </div>
             </div>
         </div>
-
-        <script type="text/javascript ">
-            $(document).ready(function() {
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
+        <%- include('partial/message') %>
+            <script type="text/javascript ">
+                $(document).ready(function() {
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
                 });
-            });
-        </script>
+            </script>
     </body>
 
 </html>

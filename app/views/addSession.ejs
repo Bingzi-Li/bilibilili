@@ -73,7 +73,7 @@
 
                 <div class="container w-50 mt-5">
                     <h3>Add Session</h3>
-                    <form action="/admin/manageSessions/add" method="POST">
+                    <form action="/admin/manageSessions/add" method="POST" onsubmit="return checkAddSession()">
                         <div class="form-group">
                             <label for="sessionNameInput">Session Name</label>
                             <input type="text" name="sessionName" id="sessionNameInput" class="form-control" aria-describedby="emailHelp" placeholder="Enter session name">
@@ -97,42 +97,15 @@
 
             </div>
         </div>
-
-        <script type="text/javascript">
-            var msgType = null
-            var msg = null
-
-            $(document).ready(function() {
-                alertify.set('notifier', 'position', 'top-center');
-
-                <% if (locals.msgType) { %>
-                msg = "<%=msg%>"
-                msgType = "<%=msgType%>"
-                <% } %>
-
-                switch (msgType) {
-                    case "success":
-                        alertify.success(msg)
-                        break
-
-                    case "error":
-                        alertify.error(msg)
-                        break
-
-                    case "warning":
-                        alertify.warning(msg)
-                        break
-
-                    default:
-                        break
-                }
-
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
+        <%- include('partial/message') %>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
                 });
-            });
-        </script>
+            </script>
     </body>
 
 </html>

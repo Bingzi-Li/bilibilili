@@ -80,45 +80,45 @@
 
             </div>
         </div>
+        <%- include('partial/message') %>
+            <script type="text/javascript">
+                var currentSessionName
+                var currentUserEmail
+                var currentSessionChoice
 
-        <script type="text/javascript">
-            var currentSessionName
-            var currentUserEmail
-            var currentSessionChoice
+                $(document).ready(function() {
 
-            $(document).ready(function() {
+                    <% if (locals.sessionName) { %>
+                    currentSessionName = "<%=sessionName%>"
+                    <% } %>
 
-                <% if (locals.sessionName) { %>
-                currentSessionName = "<%=sessionName%>"
-                <% } %>
+                    <% if (locals.sessionChoice) { %>
+                    currentSessionChoice = "<%=sessionChoice%>"
+                    <% } %>
 
-                <% if (locals.sessionChoice) { %>
-                currentSessionChoice = "<%=sessionChoice%>"
-                <% } %>
+                    <% if (locals.currentUserEmail) { %>
+                    currentUserEmail = "<%=currentUserEmail%>"
+                    <% } %>
 
-                <% if (locals.currentUserEmail) { %>
-                currentUserEmail = "<%=currentUserEmail%>"
-                <% } %>
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
 
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
+                    $("#backToManageSession").attr("href", "/staff/" + currentUserEmail + "/" + currentSessionName)
+                    getStudentPhotoPath()
+
+                    // run the face detection
+                    Promise.all(
+                        [
+                            // load models
+                            faceapi.nets.faceRecognitionNet.loadFromUri('/'),
+                            faceapi.nets.faceLandmark68Net.loadFromUri('/'),
+                            faceapi.nets.ssdMobilenetv1.loadFromUri('/')
+                        ]
+                    ).then(start)
                 });
-
-                $("#backToManageSession").attr("href", "/staff/" + currentUserEmail + "/" + currentSessionName)
-                getStudentPhotoPath()
-
-                // run the face detection
-                Promise.all(
-                    [
-                        // load models
-                        faceapi.nets.faceRecognitionNet.loadFromUri('/'),
-                        faceapi.nets.faceLandmark68Net.loadFromUri('/'),
-                        faceapi.nets.ssdMobilenetv1.loadFromUri('/')
-                    ]
-                ).then(start)
-            });
-        </script>
+            </script>
 
     </body>
 

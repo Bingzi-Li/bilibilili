@@ -5,6 +5,7 @@ const Session = require('../models/session')
 const Student = require('../models/student')
 const multer = require('multer')
 const fs = require('fs')
+const fsExtra = require('fs-extra')
 const csv = require('csvtojson')
 
 var storage = multer.diskStorage({
@@ -91,6 +92,8 @@ module.exports = function(app, passport) {
 
         Student.find({ matricNumber: req.params.matricNumber }).remove(function(err) {
             if (!err) {
+                var dir = __dirname + '/../public/faces/' + req.params.matricNumber
+                fsExtra.emptyDirSync(dir)
                 res.status(200)
                 res.end()
             }
@@ -152,7 +155,9 @@ module.exports = function(app, passport) {
     app.post('/admin/manageSessions/add', middleware.isLoggedIn,
         async function(req, res) {
 
-            const sess = await Session.find({ sessionName: req.body.sessionName })
+            const sessionName = req.body.sessionName.replace(/ /g, "-")
+
+            const sess = await Session.find({ sessionName: sessionName })
 
             if (sess.length > 0) {
                 const staffList = await User.find({ role: "user" })
@@ -166,7 +171,7 @@ module.exports = function(app, passport) {
 
             User.find({ email: req.body.email }, function(err, data) {
                 const sess = new Session({
-                    sessionName: req.body.sessionName,
+                    sessionName: sessionName,
                     staffInCharge: data[0].displayName,
                     staffEmail: req.body.email,
                     numOfSessions: req.body.numOfSessions
@@ -187,10 +192,7 @@ module.exports = function(app, passport) {
 
     // delete a session
     app.delete('/admin/manageSessions/delete/:sessionName', middleware.isLoggedIn, function(req, res) {
-
-        const sessionName = req.params.sessionName.replace("*", " ")
-
-        Session.find({ sessionName: sessionName }).remove(function(err) {
+        Session.find({ sessionName: req.params.sessionName }).remove(function(err) {
             if (!err) {
                 res.status(200)
                 res.end()

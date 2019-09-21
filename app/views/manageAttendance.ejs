@@ -209,56 +209,29 @@
 
             </div>
         </div>
+        <%- include('partial/message') %>
+            <script type="text/javascript ">
+                var currentUserEmail = null
+                var currentSessionName = null
 
-        <script type="text/javascript ">
-            var msgType = null
-            var msg = null
-            var currentUserEmail = null
-            var currentSessionName = null
+                $(document).ready(function() {
 
-            $(document).ready(function() {
-                alertify.set('notifier', 'position', 'top-center');
+                    <% if (locals.session) { %>
+                    currentUserEmail = "<%=session.staffEmail%>"
+                    currentSessionName = "<%=session.sessionName%>"
+                    <% } %>
 
-                <% if (locals.msgType) { %>
-                msg = "<%=msg%>"
-                msgType = "<%=msgType%>"
-                <% } %>
+                    $("#downloadAttendanceListBtn").attr("href", "/staff/" + currentUserEmail + "/" + currentSessionName + '/' + currentSessionName + '.csv')
 
-                <% if (locals.session) { %>
-                currentUserEmail = "<%=session.staffEmail%>"
-                currentSessionName = "<%=session.sessionName%>"
-                <% } %>
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                        $(this).toggleClass('active');
+                    });
 
-                downloadAttendanceListBtn
+                    $('#attendanceTable').DataTable();
 
-                $("#downloadAttendanceListBtn").attr("href", "/staff/" + currentUserEmail + "/" + currentSessionName + '/' + currentSessionName + '.csv')
-
-                switch (msgType) {
-                    case "success":
-                        alertify.success(msg)
-                        break
-
-                    case "error":
-                        alertify.error(msg)
-                        break
-
-                    case "warning":
-                        alertify.warning(msg)
-                        break
-
-                    default:
-                        break
-                }
-
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $(this).toggleClass('active');
-                });
-
-                $('#attendanceTable').DataTable();
-
-            })
-        </script>
+                })
+            </script>
     </body>
 
 </html>
