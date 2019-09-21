@@ -1,7 +1,9 @@
 const User = require('../models/user')
 
-// initialize the default data in MongoDB if absent
-function initDefaultData() {
+/**
+ * initialize the default data in MongoDB if absent
+ */
+function init() {
 
     // initialize default admin user
     User.find({ role: "admin" }, function(err, data) {
@@ -44,4 +46,4 @@ function initDefaultData() {
 
 
 // export the init function
-module.exports.init = initDefaultData
+module.exports.init = init
