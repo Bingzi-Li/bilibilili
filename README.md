@@ -15,3 +15,19 @@ How to run:
     password: ntuniubi
 7. Admin and staff account are directed to different pages
 8. For staff account, choose a session from the left side bar, then click "take attendance" button the top right corner. The browser will render an attendance-taking page. Click "start" button to start facial recognition. The browser may take a while to load carema and DL models before facial recognition. When it is done, click "End" button on the left side bar to go back to the attendance list page.
+
+---------------
+#Note
+When assigning students to sessions, the CSV file must be one culumn only in the format below (student is the header):
+
+----------
+student
+----------
+student1_email
+----------
+student2_email
+----------
+student3_email
+----------
+
+
