@@ -242,7 +242,7 @@ module.exports = function(app, passport) {
                                             var att = [];
 
                                             for (var i = 0; i < session.numOfSessions; i++) {
-                                                await att.push("pending");
+                                                await att.push("absent");
                                             }
                                             session.record.push({
                                                 name: data.name,
