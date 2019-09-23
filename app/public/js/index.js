@@ -16,7 +16,7 @@ function deleteUser(element) {
 
 function deleteSession(element) {
     var sessionName = element.parentElement.parentElement.children[0].innerText
-    console.log(sessionName)
+
     $.ajax({
         url: "/admin/manageSessions/delete/" + sessionName.replace(" ", "*"),
         type: "delete",
@@ -102,6 +102,11 @@ function checkAddStudent() {
         }
     }
 
+    if (!(/^[A-Za-z][0-9]{7}[A-Za-z]$/.test(elementToCheck[1].value))) {
+        elementToCheck[1].focus()
+        alertify.warning("Invalid Matric Number")
+        return false
+    }
     return true
 }
 
