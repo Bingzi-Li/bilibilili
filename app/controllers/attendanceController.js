@@ -8,7 +8,7 @@ const Json2CsvParser = require('json2csv').Parser
 // export the attendance controller
 module.exports = function(app, passport) {
 
-    // redirect the staff user to manage attendance page
+    // redirect the staff user to home page of attendance management
     app.get('/staff', middleware.isLoggedIn,
         function(req, res) {
             req.user.then(function(user) {
@@ -21,6 +21,7 @@ module.exports = function(app, passport) {
             })
         })
 
+    // redirect the staff user to the manage student attendance page
     app.get('/staff/:email/:sessionName', middleware.isLoggedIn,
         function(req, res) {
             req.user.then(async function(user) {
@@ -34,6 +35,7 @@ module.exports = function(app, passport) {
             })
         })
 
+    // redirecdt the staff the face-recognition attendance taking page
     app.post('/staff/:email/:sessionName/takeAttendance', middleware.isLoggedIn,
         function(req, res) {
             req.user.then(async function(user) {

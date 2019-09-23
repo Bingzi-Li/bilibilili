@@ -8,6 +8,7 @@ const fs = require('fs')
 const fsExtra = require('fs-extra')
 const csv = require('csvtojson')
 
+// initialize storage configuration for photo uploading
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
         var dir = __dirname + '/../public/faces/' + req.params.matricNumber
@@ -22,8 +23,10 @@ var storage = multer.diskStorage({
     }
 });
 
+// initialize the upload configuration for photo uploading
 var uploadPhoto = multer({ storage: storage }).array('studentPhoto', 4)
 
+// initialize storage configuration for csv uploading
 var uploadCSV = multer({
     storage: multer.memoryStorage()
 }).single("csvFile")
