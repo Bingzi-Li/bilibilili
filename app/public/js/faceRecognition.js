@@ -50,7 +50,7 @@ async function start() {
     // turn on the camera
     navigator.getUserMedia({ video: {} },
         stream => videoEl.srcObject = stream,
-        err => console.error(err)
+        err => console.log(err)
     )
 
     // user labels

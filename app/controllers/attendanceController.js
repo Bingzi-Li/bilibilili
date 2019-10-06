@@ -141,19 +141,23 @@ module.exports = function(app, passport) {
                     var fields = ["name", "matric number"]
                     var rows = []
 
-                    for (var i = 0; i < session.record[0].attendance.length; i++) {
-                        fields.push((i + 1).toString())
+                    if (session.record[0] != undefined) {
+
+                        for (var i = 0; i < session.record[0].attendance.length; i++) {
+                            fields.push((i + 1).toString())
+                        }
+
+                        for (var j = 0; j < session.record.length; j++) {
+                            row = {}
+                            row["name"] = session.record[j].name
+                            row["matric number"] = session.record[j].matricNumber
+                            for (var k = 0; k < session.record[j].attendance.length; k++) {
+                                row[(k + 1).toString()] = session.record[j].attendance[k]
+                            }
+                            rows.push(row)
+                        }
                     }
 
-                    for (var j = 0; j < session.record.length; j++) {
-                        row = {}
-                        row["name"] = session.record[j].name
-                        row["matric number"] = session.record[j].matricNumber
-                        for (var k = 0; k < session.record[j].attendance.length; k++) {
-                            row[(k + 1).toString()] = session.record[j].attendance[k]
-                        }
-                        rows.push(row)
-                    }
 
                     const json2csvParser = new Json2CsvParser({ fields });
                     const result = json2csvParser.parse(rows);

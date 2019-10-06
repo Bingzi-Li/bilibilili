@@ -134,13 +134,16 @@
                             <div class="form-group">
                                 <label for="sessionChoiceInput">Please select the session:</label>
                                 <select class="form-control" name="sessionChoice" id="sessionChoiceInput">
-                                        <%if (session.record) { %>
-                                            <% for(var i=0; i<session.record[0].attendance.length;i++){ %>
+                                        <%if (session.record && session.record.length > 0) { %>
+                                            <% for(var i=0; i<session.record[0].attendance.length; i++){ %>
                                                         <option>
                                                             <%= i+1 %>
                                                         </option>
                                                 <% }; %>
+                                                <% } else { %>
+                                                    <option value="" disabled>NULL</option>
                                                     <% } %>
+
                                           </select>
                             </div>
 
@@ -169,7 +172,7 @@
                             <div class="form-group">
                                 <label for="matricNumberInput">Matric Number</label>
                                 <select class="form-control" name="matricNumber" id="matricNumberInput">
-                                        <%if (session.record) { %>
+                                        <%if (session.record && session.record.length > 0) { %>
                                             <% session.record.forEach(function(record) { %>
                                                     <option>
                                                         <%= record.matricNumber %>
@@ -183,12 +186,14 @@
                             <div class="form-group">
                                 <label for="attendanceSessionInput">Select the session:</label>
                                 <select class="form-control" name="attendanceSession" id="attendanceSessionInput">
-                                            <%if (session.record) { %>
+                                            <%if (session.record && session.record.length > 0) { %>
                                                 <% for(var i=0; i<session.record[0].attendance.length; i++) { %>
                                                             <option>
                                                                 <%= i+1 %>
                                                             </option>
                                                     <% } %>
+                                                        <% } else {%>
+                                                            <option value="" disabled>NULL</option>
                                                         <% } %>
                                               </select>
                             </div>
